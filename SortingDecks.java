@@ -2,6 +2,28 @@ import java.util.Random;
 
 public class SortingDecks {
 
+
+  public static void main (String[] args) {
+    int [] deck = makeDeck();
+    int count;
+
+    // deck = bubbleSort(deck);
+
+    // deck = selectionSort(deck);
+
+    // deck = insertionSort(deck);
+
+    deck = searchSort(deck);
+
+    System.out.println("The final deck is:");
+
+    for ( count = 0; count <= deck.length - 1; count ++) {
+      System.out.println(deck[count]);
+    }
+
+  }
+
+
   public static int[] makeDeck() {
 
     Random rand = new Random();
@@ -21,15 +43,13 @@ public class SortingDecks {
 
     }
 
-    System.out.println("The started deck is finished.");
+    System.out.println("The starting deck is finished.");
 
     return(deck);
   }
 
   public static int[] swap(int[] deck, int a, int b) {
     int temp;
-
-    System.out.println(deck[a] + " is swapping with " + deck[b]);
 
     temp = deck[a];
     deck[a] = deck[b];
@@ -39,62 +59,96 @@ public class SortingDecks {
   }
 
 
-  public static void bubbleSort () {
-    int [] deck = makeDeck();
+  public static int[] bubbleSort (int[] deck) {
 
-    boolean shuffled, swapped;
-    shuffled = swapped = false;
+    int first, second;
 
-    int temp, card, next, count, first, second;
+    for (int count = 0; count <= (deck.length - 1); count++) {
 
-    card = count = temp = 0;
-    next = 1;
+      for(int card = 0; card <= (deck.length - 2); card++) {
+        first = deck[card];
+        second = deck[card + 1];
 
-    while (!shuffled) {
-
-      first = deck[card];
-      second = deck[next];
-      // System.out.println("First: " + first + " Second: " + second);
-
-      if (first > second) {
-        deck = swap(deck, card, next);
-
-        System.out.println("It works");
-
-        boolean swapped = true;
-      } else if (!swapped && count == 8) {
-        boolean shuffled = true;
-        System.out.println("yee");
+        if (first > second) {
+          deck = swap(deck, card, card + 1);
+        }
       }
-      // System.out.println("swapped 2: " + swapped);
-
-
-      if (card <= 7) {
-        card = card + 1;
-      } else if (card >= 8) {
-        card = 0;
-        boolean swapped = false;
-      }
-      next = card + 1;
     }
 
-    System.out.println("swapped 3: " + swapped);
+    return deck;
+  }
 
+  public static int[] selectionSort (int[] deck) {
 
-    System.out.println("The final deck is:");
+    int[] finalDeck = new int[deck.length];
 
-    while (count <= 9) {
-      System.out.println(deck[count]);
+    for (int i = 0; i <= (deck.length - 1); i++) {
 
-      count = count + 1;
+      int minCard = 14;
+      int temp = 0;
+
+      for (int card = 0; card <= (deck.length - 1); card++) {
+
+        if (deck[card] < minCard) {
+          minCard = deck[card];
+          temp = card;
+        }
+      }
+
+      finalDeck[i] = minCard;
+      deck[temp] = 14;
+
 
     }
+//
+    return finalDeck;
 
   }
 
-  public static void main (String[] args) {
+  public static int[] insertionSort(int deck[]) {
 
-    bubbleSort();
+    for (int i = 0; i <= (deck.length - 1); i++) {
+
+      int temp = i;
+
+      for(int card = i; card >= 0; card--) {
+
+        if (deck[card] > deck[temp]) {
+          deck = swap(deck, card, temp);
+          temp = card;
+        }
+      }
+
+    }
+
+
+    return deck;
+  }
+
+  public static int[] searchSort(int deck[]) {
+
+    int[] finalDeck = new int[deck.length];
+    int list = 0;
+
+    for (int i = 1; i <= 13; i++) {
+      int counter = 0;
+
+      for (int card = 0; card <= (deck.length - 1); card++){
+        if (deck[card] == i) {
+          counter = counter + 1;
+        }
+      }
+
+      for (int count = list; count < (counter + list); count ++) {
+        finalDeck[count] = i;
+      }
+
+      list = counter + list;
+    }
+
+    return finalDeck;
 
   }
+
+
 }
