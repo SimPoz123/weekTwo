@@ -7,13 +7,15 @@ public class SortingDecks {
     int [] deck = makeDeck();
     int count;
 
-    // deck = bubbleSort(deck);
+    int four = search(deck, 4);
+
+    deck = bubbleSort(deck);
 
     // deck = selectionSort(deck);
 
     // deck = insertionSort(deck);
 
-    deck = searchSort(deck);
+    int three = betterSearch(deck, 3);
 
     System.out.println("The final deck is:");
 
@@ -125,29 +127,28 @@ public class SortingDecks {
     return deck;
   }
 
-  public static int[] searchSort(int deck[]) {
+  public static int search(int deck[], int value) {
 
-    int[] finalDeck = new int[deck.length];
-    int list = 0;
-
-    for (int i = 1; i <= 13; i++) {
-      int counter = 0;
-
-      for (int card = 0; card <= (deck.length - 1); card++){
-        if (deck[card] == i) {
-          counter = counter + 1;
-        }
+    for (int i = 0; i <= (deck.length - 1); i++) {
+      if (deck[i] == value) {
+        System.out.println(value + " can be found at index " + i);
+        return i;
       }
-
-      for (int count = list; count < (counter + list); count ++) {
-        finalDeck[count] = i;
-      }
-
-      list = counter + list;
     }
+    System.out.println("The number cannot be found")   ;
+    return -1;
+  }
 
-    return finalDeck;
+  public static int betterSearch (int[] deck, int value) {
 
+    for (int i = 0; deck[i] <= value; i++) {
+      if (deck[i] == value) {
+        System.out.println(value + " can be found at index " + i);
+        return i;
+      }
+    }
+    System.out.println("That number cannot be found");
+    return -1;
   }
 
 
